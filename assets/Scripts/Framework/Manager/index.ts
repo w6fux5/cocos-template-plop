@@ -1,0 +1,6 @@
+export * from './TimerManager'
+export * from './EventManager'
+export * from './ResourceManager'
+export * from './SoundManager'
+export * from './Net/NetManager'
+export * from './UI/UIManager'
