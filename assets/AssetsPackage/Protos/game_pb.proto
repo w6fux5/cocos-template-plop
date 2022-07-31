@@ -1,6 +1,6 @@
 syntax = "proto2"; 
 
-enum Stype {
+enum ServiceType {
 	INVALIDI_STYPE = 0;
 	Auth = 1;
 	System = 2;
@@ -10,60 +10,50 @@ enum Stype {
 enum Cmd {
 	INVALID_CMD = 0;
 	
-	eGuestLoginReq = 1;
-	eGuestLoginRes = 2;
-	eRelogin = 3;
-	eUserLostConn = 4;
-	eEditProfileReq = 5;
-	eEditProfileRes = 6;
+	GuestLoginReq = 1;
+	GuestLoginRes = 2;
+	Relogin = 3;
+	UserLostConn = 4;
+	EditProfileReq = 5;
+	EditProfileRes = 6;
 
-	eAccountUpgradeReq = 7;
-	eAccountUpgradeRes = 8;
-
-	eUnameLoginReq = 9;
-	eUnameLoginRes = 10;
-
-	eLoginOutReq = 11;
-	eLoginOutRes = 12;
-
-	eGetUgameInfoReq = 13;
-	eGetUgameInfoRes = 14;
-
-	eRecvLoginBonuesReq = 15;
-	eRecvLoginBonuesRes = 16;
-
-	eGetWorldRankUchipReq = 17;
-	eGetWorldRankUchipRes = 18;
-
-	eGetSysMsgReq = 19;
-	eGetSysMsgRes = 20;
-
-	eLoginLogicReq = 21;
-	eLoginLogicRes = 22;
-
-	eEnterZoneReq = 23;
-	eEnterZoneRes = 24;
-
-	eEnterMatch = 25;
-	eUserArrived = 26;
-
-	eExitMatchReq = 27;
-	eExitMatchRes = 28;
-	eUserExitMatch = 29;
-
-	eGameStart = 30;
-	eUdpTest = 31;
-	eLogicFrame = 32;
-	eNextFrameOpts = 33;
+	AccountUpgradeReq = 7;
+	AccountUpgradeRes = 8;
+	UnameLoginReq = 9;
+	UnameLoginRes = 10;
+	LoginOutReq = 11;
+	LoginOutRes = 12;
+	GetUgameInfoReq = 13;
+	GetUgameInfoRes = 14;
+	RecvLoginBonuesReq = 15;
+	RecvLoginBonuesRes = 16;
+	GetWorldRankUchipReq = 17;
+	GetWorldRankUchipRes = 18;
+	GetSysMsgReq = 19;
+	GetSysMsgRes = 20;
+	LoginLogicReq = 21;
+	LoginLogicRes = 22;
+	EnterZoneReq = 23;
+	EnterZoneRes = 24;
+	EnterMatch = 25;
+	UserArrived = 26;
+	ExitMatchReq = 27;
+	ExitMatchRes = 28;
+	UserExitMatch = 29;
+	GameStart = 30;
+	UdpTest = 31;
+	LogicFrame = 32;
+	NextFrameOpts = 33;
 }
+
 
 message GuestLoginReq {
 	required string guest_key = 1;
 }
 
 message UnameLoginReq {
-	required string uname = 1;
-	required string upwd = 2;
+	required string userName = 1;
+	required string password = 2;
 }
 
 message UserCenterInfo {

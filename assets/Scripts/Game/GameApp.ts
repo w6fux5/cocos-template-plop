@@ -1,4 +1,7 @@
-import { _decorator, Component, AudioClip, AudioSource, Prefab } from "cc";
+import { _decorator, Component, AudioClip, Prefab } from "cc";
+
+import { GameLaunch } from "../GameLaunch";
+
 import {
   ResourceManager,
   EventManager,
@@ -6,14 +9,17 @@ import {
   SoundManager,
   TimerManager,
   UIManager,
+  ProtoManager,
 } from "../Framework/Manager";
 
+import { AuthProxy, NetEventDispatch } from "./ServerProxy";
+
 const resPkg = {
-  // 手動指定
+  // 手動指定加載
   GUI: [{ assetType: Prefab, urls: ["UIPrefabs/LoginUI"] }],
   Sounds: [{ assetType: AudioClip, urls: ["CK_attack1", "Qinbing_die"] }],
 
-  // 整包
+  // 整包加載
   // "Sounds": AudioClip,
 };
 
@@ -21,11 +27,16 @@ export class GameApp extends Component {
   public static Instance: GameApp = null as unknown as GameApp;
 
   onLoad(): void {
-    if (GameApp.Instance === null) {
-      GameApp.Instance = this;
-    } else {
+    if (GameApp.Instance) {
       this.destroy();
       return;
+    }
+
+    GameApp.Instance = this;
+
+    if (GameLaunch.Instance.NetMode) {
+      this.node.addComponent(NetEventDispatch).Init();
+      AuthProxy.Instance.Init();
     }
   }
 
@@ -59,6 +70,23 @@ export class GameApp extends Component {
 
   private testScene(): void {
     console.log("Testing scene...");
+    //==== Net Event Dispatch 測試  ====//
+    //=== end ====//
+
+    //==== Protobuf 測試  ====//
+    // const buf = ProtoManager.Instance.SerializeMessage("UnameLoginReq", {
+    //   uname: "Mie",
+    //   upwd: "123",
+    // });
+    // console.log(buf);
+
+    // const data = ProtoManager.Instance.DeserializeMsg("UnameLoginReq", buf);
+    // console.log(data.uname);
+    //=== end ====//
+
+    //==== Net 測試  ====//
+    NetManager.Instance.ConnectToServer()
+    //=== end ====//
 
     //==== Event listener 測試  ====//
     // const eventHandler = (eventName: string, data: any) => {
@@ -80,7 +108,7 @@ export class GameApp extends Component {
     //=== end ====//
 
     //==== render UI view 測試  ====//
-    // UIManager.Instance.ShowUIView("LoginUI")
+    UIManager.Instance.ShowUIView("LoginUI");
     //=== end ====//
 
     //=== 釋放資源測試 ====//

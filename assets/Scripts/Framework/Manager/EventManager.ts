@@ -1,9 +1,16 @@
-import { _decorator, Component, Node } from "cc";
+import { Component } from "cc";
 
 export class EventManager extends Component {
   public static Instance: EventManager | null = null;
 
   private eventMap: object = {};
+
+  public EventType = {
+    NET_CONNECTING: "NET_CONNECTING",
+    NET_DISCONNECTED: "NET_DISCONNECTED",
+    NET_CONNECT_SUCCESS: "NET_CONNECT_SUCCESS",
+    NET_MESSAGE: "NET_MESSAGE",
+  };
 
   onLoad(): void {
     if (EventManager.Instance) {

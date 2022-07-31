@@ -84,8 +84,12 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "isNetMode": false,
+    "NetMode": true,
     "wsUrl": "ws://127.0.0.1:9876?token='mike",
+    "pbTexAsset": {
+      "__uuid__": "9a476980-1372-4066-b794-7557ac01b3ab",
+      "__expectedType__": "cc.TextAsset"
+    },
     "_id": "60kr9aESBP+abC5mPNGYon"
   },
   {
@@ -197,7 +201,7 @@
     "_priority": 1073741824,
     "_fov": 45,
     "_fovAxis": 0,
-    "_orthoHeight": 330.3765690376569,
+    "_orthoHeight": 329.43699731903484,
     "_near": 1,
     "_far": 2000,
     "_color": {

@@ -1,4 +1,4 @@
-import { _decorator, Component } from "cc";
+import { Component } from "cc";
 import { EventManager } from "../EventManager";
 
 enum State {
@@ -10,7 +10,7 @@ enum State {
 export class NetManager extends Component {
   public static Instance: NetManager | null = null;
 
-  private url: string = "ws://127.0.0.1:9876?token='mike";
+  private url: string = "";
   private state: number = State.disconnected;
   private socket: WebSocket | null = null;
 
@@ -24,7 +24,7 @@ export class NetManager extends Component {
     this.state = State.disconnected;
   }
 
-  update(dt: number) {
+  update(deltaTime: number): void {
     if (this.state !== State.disconnected) return;
     this.ConnectToServer();
   }
@@ -38,10 +38,16 @@ export class NetManager extends Component {
   public ConnectToServer(): void {
     if (this.state !== State.disconnected) return;
 
-    EventManager.Instance.Emit("net_connecting", null);
+    EventManager.Instance.Emit(
+      EventManager.Instance.EventType.NET_CONNECTING,
+      null
+    );
 
     this.state = State.connecting;
+
     this.socket = new WebSocket(this.url);
+
+    this.socket.binaryType = "arraybuffer"; // 二進制
     this.socket.onopen = this.on_opened.bind(this);
     this.socket.onmessage = this.on_recv_data.bind(this);
     this.socket.onclose = this.on_socket_close.bind(this);
@@ -55,12 +61,16 @@ export class NetManager extends Component {
       this.socket = null;
     }
 
-    EventManager.Instance.Emit("net_disconnected", null);
+    EventManager.Instance.Emit(
+      EventManager.Instance.EventType.NET_DISCONNECTED,
+      null
+    );
+
     this.state = State.disconnected;
   }
 
   // Send Data
-  public SendData(data: string) {
+  public SendData(data: ArrayBuffer): void {
     if (this.state === State.connected && this.socket) {
       this.socket.send(data);
     }
@@ -68,24 +78,32 @@ export class NetManager extends Component {
 
   //==== Event ====//
   // 成功連接 event
-  private on_opened(event: any) {
+  private on_opened(event: any): void {
     this.state = State.connected;
     console.log(`connect to server: ${this.url} success!`);
-    EventManager.Instance.Emit("net_connect_success", null);
+
+    EventManager.Instance.Emit(
+      EventManager.Instance.EventType.NET_CONNECT_SUCCESS,
+      null
+    );
   }
 
   // 收到 server 訊息 event
-  private on_recv_data(event: any) {
-    EventManager.Instance.Emit("net_message", event.data);
+  private on_recv_data(event: any): void {
+    console.log(event.data)
+    EventManager.Instance.Emit(
+      EventManager.Instance.EventType.NET_MESSAGE,
+      event.data
+    );
   }
 
   // 關閉 socket event
-  private on_socket_close(event: any) {
+  private on_socket_close(event: any): void {
     this.CloseSocket();
   }
 
   // Socket error event
-  private on_socket_err(event: any) {
+  private on_socket_err(event: any): void {
     this.CloseSocket();
   }
   //==== End ====//
