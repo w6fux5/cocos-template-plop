@@ -5,7 +5,13 @@
   "creator": {
     "version": "3.5.2"
   },
+  "scripts": {
+    "plop": "plop"
+  },
   "dependencies": {
     "protobufjs": "^7.0.0"
+  },
+  "devDependencies": {
+    "plop": "^3.1.1"
   }
 }

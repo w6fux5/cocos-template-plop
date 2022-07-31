@@ -10,7 +10,7 @@
   },
   {
     "__type__": "cc.Scene",
-    "_name": "Main",
+    "_name": "Art-edit",
     "_objFlags": 0,
     "_parent": null,
     "_children": [
@@ -30,7 +30,7 @@
     "_globals": {
       "__id__": 11
     },
-    "_id": "24d75dcc-68f9-45f7-b339-077a55d55fd1"
+    "_id": "7a0019fd-5687-4c31-a5a4-cda5f3a9eab4"
   },
   {
     "__type__": "cc.Node",
