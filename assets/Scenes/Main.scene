@@ -84,11 +84,15 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "NetMode": true,
+    "NetMode": false,
     "wsUrl": "ws://127.0.0.1:9876?token='mike",
     "pbTexAsset": {
       "__uuid__": "9a476980-1372-4066-b794-7557ac01b3ab",
       "__expectedType__": "cc.TextAsset"
+    },
+    "Prefab": {
+      "__uuid__": "426e2ebe-c636-4192-a49b-f873743b4f94",
+      "__expectedType__": "cc.Prefab"
     },
     "_id": "60kr9aESBP+abC5mPNGYon"
   },

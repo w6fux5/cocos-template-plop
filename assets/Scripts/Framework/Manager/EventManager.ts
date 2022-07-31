@@ -10,6 +10,8 @@ export class EventManager extends Component {
     NET_DISCONNECTED: "NET_DISCONNECTED",
     NET_CONNECT_SUCCESS: "NET_CONNECT_SUCCESS",
     NET_MESSAGE: "NET_MESSAGE",
+
+    LOADING_PROGRESS: "LOADING_PROGRESS",
   };
 
   onLoad(): void {
@@ -38,7 +40,9 @@ export class EventManager extends Component {
     caller: any,
     callback: Function
   ): void {
+
     if (!this.eventMap[eventName]) return;
+
 
     for (let i = 0; i < this.eventMap[eventName].length; i++) {
       let obj = this.eventMap[eventName][i];

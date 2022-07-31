@@ -1,4 +1,4 @@
-import { _decorator, Component, TextAsset } from "cc";
+import { _decorator, Component, TextAsset, Prefab } from 'cc';
 
 import {
   EventManager,
@@ -25,6 +25,9 @@ export class GameLaunch extends Component {
 
   @property(TextAsset)
   private pbTexAsset: TextAsset | null = null; // 協議描述對象
+
+  @property(Prefab)
+  public Prefab: Prefab | null = null
 
   onLoad(): void {
     if (GameLaunch.Instance) {

@@ -3,8 +3,8 @@ import { UIControllers } from "../../Framework/Manager/UI/UIControllers";
 import { AuthProxy } from "../ServerProxy";
 const { ccclass } = _decorator;
 
-@ccclass("LoginUI_Ctrl")
-export class LoginUI_Ctrl extends UIControllers {
+@ccclass("TestUI_Ctrl")
+export class TestUI_Ctrl extends UIControllers {
   private version: Label | null = null;
 
   onLoad(): void {
@@ -17,6 +17,6 @@ export class LoginUI_Ctrl extends UIControllers {
 
   private onGameStartClick(): void {
     console.log("click!");
-    AuthProxy.Instance.UserNameLogin({ userName: "Mike!!", password: "1234!!" });
+    // AuthProxy.Instance.UserNameLogin({ userName: "Mike!!", password: "1234!!" });
   }
 }

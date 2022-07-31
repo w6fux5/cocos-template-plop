@@ -16,7 +16,7 @@ import { AuthProxy, NetEventDispatch } from "./ServerProxy";
 
 const resPkg = {
   // 手動指定加載
-  GUI: [{ assetType: Prefab, urls: ["UIPrefabs/LoginUI"] }],
+  GUI: [{ assetType: Prefab, urls: ["UIPrefabs/TestUI"] }],
   Sounds: [{ assetType: AudioClip, urls: ["CK_attack1", "Qinbing_die"] }],
 
   // 整包加載
@@ -44,10 +44,16 @@ export class GameApp extends Component {
   public EnterGame(): void {
     console.log("Enter game...");
 
+    UIManager.Instance.showUIPrefab(GameLaunch.Instance.Prefab);
+
     ResourceManager.Instance.preloadResPkg(
       resPkg,
       (now: any, total: any) => {
-        console.log(now, total);
+        // console.log(now, total);
+        EventManager.Instance.Emit(
+          EventManager.Instance.EventType.LOADING_PROGRESS,
+          ((now / total) * 100).toFixed(0)
+        );
       },
       () => {
         // this.EnterLoadingScene();
@@ -70,25 +76,25 @@ export class GameApp extends Component {
 
   private testScene(): void {
     console.log("Testing scene...");
-    //==== Net Event Dispatch 測試  ====//
+    //==== NetEventDispatch 測試  ====//
     //=== end ====//
 
-    //==== Protobuf 測試  ====//
+    //==== ProtoManager 測試  ====//
     // const buf = ProtoManager.Instance.SerializeMessage("UnameLoginReq", {
-    //   uname: "Mie",
-    //   upwd: "123",
+    //   userName: "Mie",
+    //   password: "123",
     // });
     // console.log(buf);
 
     // const data = ProtoManager.Instance.DeserializeMsg("UnameLoginReq", buf);
-    // console.log(data.uname);
+    // console.log(data.userName);
     //=== end ====//
 
-    //==== Net 測試  ====//
-    NetManager.Instance.ConnectToServer()
+    //==== NetManager 測試  ====//
+    // NetManager.Instance.ConnectToServer()
     //=== end ====//
 
-    //==== Event listener 測試  ====//
+    //==== EventManager 測試  ====//
     // const eventHandler = (eventName: string, data: any) => {
     //   console.log("Get Event");
     //   console.log(eventName);
@@ -107,11 +113,12 @@ export class GameApp extends Component {
     // }, 3)
     //=== end ====//
 
-    //==== render UI view 測試  ====//
-    UIManager.Instance.ShowUIView("LoginUI");
+    //==== UIManager 測試  ====//
+    UIManager.Instance.ClearAll()
+    UIManager.Instance.ShowUIView("TestUI");
     //=== end ====//
 
-    //=== 釋放資源測試 ====//
+    //=== ResourceManager 測試 ====//
     // ResourceManager.Instance.releaseResPkg(resPkg);
     // this.scheduleOnce(() => {
     //   console.log(ResourceManager.Instance.getAsset("Sounds", "CK_attack1"));
